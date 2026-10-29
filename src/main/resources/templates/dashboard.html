@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">Dashboard</title>
+    <th:block th:replace="~{fragments/common :: styles}"></th:block>
+</head>
+<body>
+<div th:utext="${navigationHtml}"></div>
+<main>
+    <h1>Employee and project dashboard</h1>
+    <p>Manage employees, projects, and project assignments from one place.</p>
+    <section class="grid">
+        <article class="card"><h2 th:text="${employeeCount}">0</h2><p>Employees</p><a class="button" th:href="${contextPath + '/employee/list'}">Manage employees</a></article>
+        <article class="card"><h2 th:text="${projectCount}">0</h2><p>Projects</p><a class="button" th:href="${contextPath + '/project/list'}">Manage projects</a></article>
+        <article class="card"><h2>Assignments</h2><p>Review and create employee allocations.</p><a class="button" th:href="${contextPath + '/allocation/add'}">Allocate projects</a></article>
+    </section>
+</main>
+</body>
+</html>

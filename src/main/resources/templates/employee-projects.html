@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">My projects</title>
+    <th:block th:replace="~{fragments/common :: styles}"></th:block>
+</head>
+<body>
+<div th:utext="${navigationHtml}"></div>
+<main>
+    <h1>Projects assigned to <span th:text="${employeeName}">Employee</span></h1>
+    <section class="card" th:if="${#lists.isEmpty(projects)}">You are not currently allocated to any projects.</section>
+    <section class="card" th:unless="${#lists.isEmpty(projects)}">
+        <table>
+            <thead><tr><th>Project</th><th>Client</th><th>Start date</th><th>Budget</th><th>Status</th></tr></thead>
+            <tbody><tr th:each="project : ${projects}">
+                <td th:text="${project.projectName}"></td>
+                <td th:text="${project.clientName}"></td>
+                <td th:text="${project.startDate}"></td>
+                <td th:text="${project.budget}"></td>
+                <td th:text="${project.status}"></td>
+            </tr></tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

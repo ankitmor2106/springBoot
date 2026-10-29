@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">Allocation review</title>
+    <th:block th:replace="~{fragments/common :: styles}"></th:block>
+</head>
+<body>
+<div th:utext="${navigationHtml}"></div>
+<main>
+    <h1 th:text="${pageTitle}">Allocation review</h1>
+    <section class="card" th:if="${success}">
+        <div class="notice">Allocation saved successfully.</div>
+        <p><strong th:text="${result.employeeName}">Employee</strong> was allocated to:</p>
+        <ul><li th:each="projectName : ${result.projectNames}" th:text="${projectName}"></li></ul>
+        <a class="button" th:href="${contextPath + '/allocation/add'}">Create another allocation</a>
+    </section>
+    <section class="card" th:unless="${success}">
+        <div class="error" th:if="${error}" th:text="${error}"></div>
+        <p>Confirm the following allocation for <strong th:text="${employee.employeeName}">Employee</strong>.</p>
+        <ul><li th:each="project : ${projects}" th:text="${project.projectName + ' — ' + project.status + ', team ' + project.employees.size() + '/' + project.maximumTeamSize}"></li></ul>
+        <div class="error" th:if="${#lists.isEmpty(projects)}">No selected projects are available. Return to the form and choose again.</div>
+        <form th:action="${contextPath + '/allocation/confirm'}" method="post" class="actions">
+            <button type="submit">Confirm and save</button>
+            <a class="button secondary" th:href="${contextPath + '/allocation/add'}">Change selection</a>
+        </form>
+    </section>
+</main>
+</body>
+</html>

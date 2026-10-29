@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">Employees</title>
+    <th:block th:replace="~{fragments/common :: styles}"></th:block>
+</head>
+<body>
+<div th:utext="${navigationHtml}"></div>
+<main>
+    <div class="actions" style="justify-content: space-between"><h1>Employees</h1><a class="button" th:href="${contextPath + '/employee/add'}">Add employee</a></div>
+    <div class="notice" th:if="${success}" th:text="${success}"></div>
+    <div class="card" th:if="${#lists.isEmpty(employees)}">No employees have been added.</div>
+    <div class="card" th:unless="${#lists.isEmpty(employees)}">
+        <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Designation</th><th>Salary</th><th>Projects</th><th>Actions</th></tr></thead>
+            <tbody>
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.employeeName}"></td>
+                <td th:text="${employee.email}"></td>
+                <td th:text="${employee.designation}"></td>
+                <td th:text="${employee.salary}"></td>
+                <td><span th:if="${#sets.isEmpty(employee.projects)}" class="muted">None</span><span th:each="project, iter : ${employee.projects}" th:text="${(iter.first ? '' : ', ') + project.projectName}"></span></td>
+                <td class="actions">
+                    <a class="button secondary" th:href="${contextPath + '/employee/projects?id=' + employee.employeeId}">View projects</a>
+                    <a class="button secondary" th:href="${contextPath + '/employee/edit?id=' + employee.employeeId}">Edit</a>
+                    <form th:action="${contextPath + '/employee/delete?id=' + employee.employeeId}" method="post" onsubmit="return confirm('Delete this employee and remove their project allocations?')">
+                        <button class="danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

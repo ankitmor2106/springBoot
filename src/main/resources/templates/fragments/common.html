@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:fragment="styles">
+        <style>
+            :root { color-scheme: light; font-family: system-ui, sans-serif; color: #1f2937; background: #f3f5f8; }
+            * { box-sizing: border-box; }
+            body { margin: 0; }
+            .topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 5vw; background: #172554; color: white; }
+            .topbar a, .link-button { color: white; text-decoration: none; }
+            .brand { font-weight: 700; font-size: 1.15rem; }
+            nav { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+            nav a:hover, .link-button:hover { text-decoration: underline; }
+            .inline { display: inline; margin: 0; }
+            .link-button { border: 0; background: transparent; padding: 0; font: inherit; cursor: pointer; }
+            main { max-width: 1050px; margin: 2rem auto; padding: 0 1rem; }
+            h1 { margin-top: 0; color: #172554; }
+            .card { background: white; border-radius: .6rem; padding: 1.25rem; margin-bottom: 1rem; box-shadow: 0 2px 8px #17255412; }
+            .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
+            label { display: block; margin: .8rem 0 .3rem; font-weight: 600; }
+            input, select { width: 100%; padding: .65rem; border: 1px solid #cbd5e1; border-radius: .35rem; font: inherit; }
+            select[multiple] { min-height: 9rem; }
+            button, .button { display: inline-block; border: 0; border-radius: .35rem; background: #1d4ed8; color: white; padding: .65rem .9rem; text-decoration: none; font: inherit; cursor: pointer; }
+            button.secondary, .button.secondary { background: #475569; }
+            button.danger { background: #b91c1c; }
+            .actions { display: flex; gap: .55rem; align-items: center; flex-wrap: wrap; }
+            table { width: 100%; border-collapse: collapse; background: white; }
+            th, td { padding: .7rem; border-bottom: 1px solid #e2e8f0; text-align: left; vertical-align: top; }
+            th { background: #eaf0fb; }
+            .notice { padding: .8rem; border-radius: .35rem; margin: 1rem 0; background: #dcfce7; color: #166534; }
+            .error { padding: .8rem; border-radius: .35rem; margin: 1rem 0; background: #fee2e2; color: #991b1b; }
+            .muted { color: #64748b; }
+            @media (max-width: 650px) { .topbar { align-items: flex-start; flex-direction: column; } }
+        </style>
+    </th:block>
+</head>
+<body></body>
+</html>

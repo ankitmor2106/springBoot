@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">Projects</title>
+    <th:block th:replace="~{fragments/common :: styles}"></th:block>
+</head>
+<body>
+<div th:utext="${navigationHtml}"></div>
+<main>
+    <div class="actions" style="justify-content: space-between"><h1>Projects</h1><a class="button" th:href="${contextPath + '/project/add'}">Add project</a></div>
+    <div class="notice" th:if="${success}" th:text="${success}"></div>
+    <div class="card" th:if="${#lists.isEmpty(projects)}">No projects have been added.</div>
+    <div class="card" th:unless="${#lists.isEmpty(projects)}">
+        <table>
+            <thead><tr><th>Project</th><th>Client</th><th>Start date</th><th>Budget</th><th>Team</th><th>Status</th><th>Assigned employees</th><th>Actions</th></tr></thead>
+            <tbody>
+            <tr th:each="project : ${projects}">
+                <td th:text="${project.projectName}"></td>
+                <td th:text="${project.clientName}"></td>
+                <td th:text="${project.startDate}"></td>
+                <td th:text="${project.budget}"></td>
+                <td th:text="${project.employees.size() + ' / ' + project.maximumTeamSize}"></td>
+                <td th:text="${project.status}"></td>
+                <td><span th:if="${#sets.isEmpty(project.employees)}" class="muted">None</span><span th:each="employee, iter : ${project.employees}" th:text="${(iter.first ? '' : ', ') + employee.employeeName}"></span></td>
+                <td><a class="button secondary" th:href="${contextPath + '/project/edit?id=' + project.projectId}">Edit</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

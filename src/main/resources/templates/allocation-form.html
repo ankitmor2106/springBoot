@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">Allocate projects</title>
+    <th:block th:replace="~{fragments/common :: styles}"></th:block>
+</head>
+<body>
+<div th:utext="${navigationHtml}"></div>
+<main>
+    <h1>Allocate projects</h1>
+    <section class="card">
+        <p>Choose an employee and one or more projects. Completed and full projects are rejected when you confirm.</p>
+        <div class="error" th:if="${error}" th:text="${error}"></div>
+        <form th:action="${contextPath + '/allocation/add'}" th:object="${allocationForm}" method="post">
+            <label for="employeeId">Employee</label>
+            <select id="employeeId" th:field="*{employeeId}" required>
+                <option value="">Choose an employee</option>
+                <option th:each="employee : ${employees}" th:value="${employee.employeeId}" th:text="${employee.employeeName + ' — ' + employee.designation}"></option>
+            </select>
+            <label for="projectIds">Projects (select one or more)</label>
+            <select id="projectIds" th:field="*{projectIds}" multiple required>
+                <option th:each="project : ${projects}" th:value="${project.projectId}"
+                        th:text="${project.projectName + ' (' + project.status + ', team ' + project.employees.size() + '/' + project.maximumTeamSize + ')'}"></option>
+            </select>
+            <p class="actions"><button type="submit">Review allocation</button><a class="button secondary" th:href="${contextPath + '/dashboard'}">Cancel</a></p>
+        </form>
+    </section>
+</main>
+</body>
+</html>

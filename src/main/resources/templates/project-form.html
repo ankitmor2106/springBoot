@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">Project</title>
+    <th:block th:replace="~{fragments/common :: styles}"></th:block>
+</head>
+<body>
+<div th:utext="${navigationHtml}"></div>
+<main>
+    <h1 th:text="${pageTitle}">Project</h1>
+    <section class="card">
+        <div class="error" th:if="${error}" th:text="${error}"></div>
+        <form th:action="${formAction}" th:object="${projectForm}" method="post">
+            <input type="hidden" th:field="*{projectId}">
+            <label for="projectName">Project name</label>
+            <input id="projectName" th:field="*{projectName}" required>
+            <label for="clientName">Client name</label>
+            <input id="clientName" th:field="*{clientName}" required>
+            <label for="startDate">Start date</label>
+            <input id="startDate" type="date" th:field="*{startDate}" required>
+            <label for="budget">Budget</label>
+            <input id="budget" type="number" min="0" step="0.01" th:field="*{budget}" required>
+            <label for="maximumTeamSize">Maximum team size</label>
+            <input id="maximumTeamSize" type="number" min="1" th:field="*{maximumTeamSize}" required>
+            <label for="status">Status</label>
+            <select id="status" th:field="*{status}" required>
+                <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
+            </select>
+            <p class="actions"><button type="submit">Save project</button><a class="button secondary" th:href="${contextPath + '/project/list'}">Cancel</a></p>
+        </form>
+    </section>
+</main>
+</body>
+</html>

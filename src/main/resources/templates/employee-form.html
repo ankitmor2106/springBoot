@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">Employee</title>
+    <th:block th:replace="~{fragments/common :: styles}"></th:block>
+</head>
+<body>
+<div th:utext="${navigationHtml}"></div>
+<main>
+    <h1 th:text="${pageTitle}">Employee</h1>
+    <section class="card">
+        <div class="error" th:if="${error}" th:text="${error}"></div>
+        <form th:action="${formAction}" th:object="${employeeForm}" method="post">
+            <input type="hidden" th:field="*{employeeId}">
+            <label for="employeeName">Name</label>
+            <input id="employeeName" th:field="*{employeeName}" required>
+            <label for="email">Email</label>
+            <input id="email" type="email" th:field="*{email}" required>
+            <label for="designation">Designation</label>
+            <input id="designation" th:field="*{designation}" required>
+            <label for="salary">Salary</label>
+            <input id="salary" type="number" min="0" step="0.01" th:field="*{salary}" required>
+            <p class="actions"><button type="submit">Save employee</button><a class="button secondary" th:href="${contextPath + '/employee/list'}">Cancel</a></p>
+        </form>
+    </section>
+</main>
+</body>
+</html>
